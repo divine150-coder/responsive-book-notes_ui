@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book & Notes Vault - Tests</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+    <header>
+        <h1>Book & Notes Vault - Test Suite</h1>
+    </header>
+    <main>
+        <section id="unit-tests">
+            <h2>Unit Tests</h2>
+            <div id="test-results"></div>
+            <button id="run-tests">Run Tests</button>
+        </section>
+        <section id="test-logs">
+            <h2>Test Logs</h2>
+            <pre id="logs"></pre>
+        </section>
+    </main>
+    <script type="module">
+        import { runTests } from './scripts/tests.js';
+
+        document.getElementById('run-tests').addEventListener('click', () => {
+            const results = runTests();
+            document.getElementById('test-results').innerHTML = results.summary;
+            document.getElementById('logs').textContent = results.logs.join('\n');
+        });
+    </script>
+</body>
+</html>

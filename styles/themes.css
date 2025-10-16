@@ -1,0 +1,166 @@
+/* Light Theme (Default) */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0f9ff;
+    --bg-tertiary: #e0f2fe;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --border-primary: #e2e8f0;
+    --border-secondary: #cbd5e1;
+    --accent-primary: #0ea5e9;
+    --accent-secondary: #06b6d4;
+    --success: #059669;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --shadow: rgba(15, 23, 42, 0.1);
+    --shadow-light: rgba(15, 23, 42, 0.05);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --bg-primary: #0c1222;
+    --bg-secondary: #1a202c;
+    --bg-tertiary: #2d3748;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+    --border-primary: #2d3748;
+    --border-secondary: #4a5568;
+    --accent-primary: #38bdf8;
+    --accent-secondary: #22d3ee;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --shadow: rgba(0, 0, 0, 0.4);
+    --shadow-light: rgba(0, 0, 0, 0.25);
+}
+
+/* Apply theme variables */
+body {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-section {
+    background: var(--bg-primary);
+    border-color: var(--border-primary);
+    box-shadow: 0 4px 20px var(--shadow-light);
+}
+
+.section-header h2 {
+    color: var(--text-primary);
+}
+
+.section-description {
+    color: var(--text-secondary);
+}
+
+.about-card, .setting-card, .dashboard-section, .book-form {
+    background: var(--bg-secondary);
+    border-color: var(--border-primary);
+}
+
+.about-card h3, .setting-card h3, .dashboard-section h3 {
+    color: var(--text-primary);
+}
+
+.form-group label, .setting-item label {
+    color: var(--text-primary);
+}
+
+.form-group input, .form-control, .sort-controls select {
+    background: var(--bg-primary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+.form-group input:focus, .form-control:focus {
+    border-color: var(--accent-primary);
+}
+
+.records-table {
+    background: var(--bg-primary);
+}
+
+.records-table th {
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+}
+
+.records-table td {
+    border-bottom-color: var(--border-primary);
+}
+
+.records-table tr:hover {
+    background: var(--bg-secondary);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+}
+
+.btn-secondary {
+    background: var(--text-tertiary);
+}
+
+.btn-outline {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.btn-outline:hover {
+    background: var(--accent-primary);
+}
+
+.edit-btn {
+    background: var(--success);
+}
+
+.delete-btn {
+    background: var(--danger);
+}
+
+.target-status.under {
+    background: var(--success);
+    color: var(--bg-primary);
+}
+
+.target-status.over {
+    background: var(--danger);
+    color: var(--bg-primary);
+}
+
+.conversion-display {
+    background: var(--bg-tertiary);
+}
+
+.record-card {
+    background: var(--bg-primary);
+    border-color: var(--border-primary);
+}
+
+.record-card h4 {
+    color: var(--text-primary);
+}
+
+.record-card .meta {
+    color: var(--text-secondary);
+}
+
+footer {
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+}
+
+/* Search input styling */
+#search-input {
+    background: var(--bg-primary);
+    border-color: var(--border-secondary);
+    color: var(--text-primary);
+}
+
+/* Mark highlighting for search */
+mark {
+    background: var(--warning);
+    color: var(--text-primary);
+}
