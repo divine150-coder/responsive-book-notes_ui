@@ -1,7 +1,7 @@
 Website
 https://divine150-coder.github.io/responsive-book-notes_ui/
 Video demo
-https://youtube.com/shorts/8Ujmkb_VPb4?feature=share
+https://youtu.be/ue756RC9pkc
 #  Book & Notes Vault
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://divine150-coder.github.io/book-notes-vault/)
