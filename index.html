@@ -25,7 +25,7 @@
             <h1> Book &amp; Notes Vault</h1>
             <nav aria-label="Primary navigation">
                 <ul class="nav-list">
-                    <li><a href="#about" class="nav-link active" data-section="about"> About</a></li>
+                    <li><a href="#about" class="nav-link active" data-section="about">About</a></li>
                     <li><a href="#dashboard" class="nav-link" data-section="dashboard"> Dashboard</a></li>
                     <li><a href="#records" class="nav-link" data-section="records"> My Library</a></li>
                     <li><a href="#add-edit-form" class="nav-link" data-section="add-edit-form"> Add Book</a></li>
@@ -204,7 +204,7 @@
 
         <section id="dashboard" class="app-section" aria-labelledby="dashboard-heading">
             <div class="section-header">
-                <h2 id="dashboard-heading"> Dashboard Overview</h2>
+                <h2 id="dashboard-heading">Dashboard Overview</h2>
                 <p class="section-description">Track your reading progress and library statistics</p>
             </div>
             
@@ -254,7 +254,7 @@
                 <div class="dashboard-card priority-card">
                     <div class="card-header">
                         <h3> Your Reading Journey</h3>
-                        <span class="help-tip" title="Track your monthly and yearly reading progress">?</span>
+                        <span class="help-tip" title="Track your monthly and yearly reading progress"></span>
                     </div>
                     <div class="progress-stats">
                         <div class="progress-item">
@@ -283,8 +283,8 @@
                 <!-- Interactive Top Categories -->
                 <div class="dashboard-card">
                     <div class="card-header">
-                        <h3> Top Categories</h3>
-                        <span class="help-tip" title="Click to filter library by category">?</span>
+                        <h3>Top Categories</h3>
+                        <span class="help-tip" title="Click to filter library by category"></span>
                     </div>
                     <div class="category-grid" id="category-breakdown">
                         <div class="category-card" onclick="filterByCategory('Classic')" role="button" tabindex="0" aria-label="Filter library by Classic books">
@@ -366,7 +366,7 @@
                 <div class="dashboard-card">
                     <div class="card-header">
                         <h3> Fun Facts</h3>
-                        <span class="help-tip" title="Interesting insights about your library">?</span>
+                        <span class="help-tip" title="Interesting insights about your library"></span>
                     </div>
                     <div class="fun-facts">
                         <div class="fact-item">
@@ -392,7 +392,7 @@
                 <div class="dashboard-card chart-card">
                     <div class="card-header">
                         <h3> Reading Activity</h3>
-                        <span class="help-tip" title="Books added each month">?</span>
+                        <span class="help-tip" title="Books added each month"></span>
                     </div>
                     <div class="simple-chart">
                         <div class="chart-item">
@@ -494,7 +494,7 @@
 
         <section id="add-edit-form" class="app-section" aria-labelledby="add-edit-heading">
             <div class="section-header">
-                <h2 id="add-edit-heading"> Add New Book</h2>
+                <h2 id="add-edit-heading">Add New Book</h2>
                 <p class="section-description">Add a new book to your personal library</p>
             </div>
 
@@ -559,8 +559,8 @@
                         </div>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">✓ Update Book</button>
-                        <button id="cancel-edit" type="button" class="btn btn-secondary">✕ Cancel</button>
+                        <button type="submit" class="btn btn-primary"> Update Book</button>
+                        <button id="cancel-edit" type="button" class="btn btn-secondary"> Cancel</button>
                     </div>
                 </form>
             </div>
@@ -578,6 +578,7 @@
                         <button class="btn btn-outline" id="export-data"> Export Data</button>
                         <button class="btn btn-outline" id="import-data"> Import Data</button>
                         <button class="btn btn-outline" id="load-seed"> Load Sample Data</button>
+                        <input type="file" id="import-file" accept=".json" style="display: none;">
                     </div>
                 </div>
                 <div class="setting-card">
@@ -612,8 +613,13 @@
         <p>&copy; 2025 Book &amp; Notes Vault. All rights reserved. <a href="mailto:d.mutesi1@alustudent.com">d.mutesi1@alustudent.com</a> • <a href="https://github.com/divine150-coder" target="_blank" rel="noopener">GitHub</a></p>
     </footer>
 
-    <script src="scripts/book-manager.js"></script>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/state.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/validators.js"></script>
+    <script src="scripts/search.js"></script>
     <script src="scripts/navigation.js"></script>
+    <script src="scripts/theme.js"></script>
     <script>
         // Make navigation globally available
         window.navigation = {
@@ -683,7 +689,7 @@
                     <td><span class="tag-badge">${book.tag}</span></td>
                     <td>${book.dateAdded}</td>
                     <td class="actions">
-                        <button class="edit-btn" data-id="${book.id}">Edit</button>
+                        <button class="edit-btn" data-id="${book.id}"> Edit</button>
                         <button class="delete-btn" data-id="${book.id}"> Delete</button>
                     </td>
                 `;
@@ -762,125 +768,10 @@
             rows.forEach(row => tbody.appendChild(row));
         }
         
-        // Update dashboard stats
-        function updateDashboardStats() {
-            const books = allBooks;
-            const totalBooks = books.length;
-            const totalPages = books.reduce((sum, book) => sum + book.pages, 0);
-            const avgPages = totalBooks > 0 ? Math.round(totalPages / totalBooks) : 0;
-            
-            const tagCounts = {};
-            books.forEach(book => {
-                tagCounts[book.tag] = (tagCounts[book.tag] || 0) + 1;
-            });
-            const topTag = Object.keys(tagCounts).length > 0 ? 
-                Object.keys(tagCounts).reduce((a, b) => tagCounts[a] > tagCounts[b] ? a : b) : 'None';
-            
-            const cards = document.querySelectorAll('#stats-dashboard .stat-card');
-            if (cards.length >= 4) {
-                cards[0].querySelector('.stat-number').textContent = totalBooks;
-                cards[1].querySelector('.stat-number').textContent = totalPages.toLocaleString();
-                cards[2].querySelector('.stat-number').textContent = avgPages;
-                cards[3].querySelector('.stat-number').textContent = topTag;
-            }
-            
-            updateRecentBooks(books);
-        }
-        
-        function updateRecentBooks(books) {
-            const recentBooksList = document.getElementById('recent-books-list');
-            if (!recentBooksList) return;
-            
-            const recentBooks = books
-                .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
-                .slice(0, 3);
-            
-            recentBooksList.innerHTML = '';
-            recentBooks.forEach(book => {
-                const bookItem = document.createElement('div');
-                bookItem.className = 'book-item';
-                bookItem.onclick = () => navigation.showSection('records');
-                bookItem.innerHTML = `
-                    <div class="book-cover"></div>
-                    <div class="book-info">
-                        <div class="book-title">${book.title}</div>
-                        <div class="book-meta">${book.pages} pages • ${new Date(book.dateAdded).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
-                    </div>
-                `;
-                recentBooksList.appendChild(bookItem);
-            });
-        }
-        
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
-                color: white;
-                padding: 12px 24px;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                z-index: 1000;
-            `;
-            
-            document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
-        }
-        
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 renderBooks();
-                updateDashboardStats();
-                
-                // Form submission handler
-                const addForm = document.getElementById('add-form');
-                if (addForm) {
-                    addForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        
-                        const formData = new FormData(addForm);
-                        const newBook = {
-                            id: `book_${Date.now()}`,
-                            title: formData.get('title').trim(),
-                            author: formData.get('author').trim(),
-                            tag: formData.get('tag').trim(),
-                            pages: parseInt(formData.get('pages')),
-                            dateAdded: formData.get('dateAdded')
-                        };
-                        
-                        if (!newBook.title || !newBook.author || !newBook.tag || !newBook.pages || !newBook.dateAdded) {
-                            showNotification('Please fill in all fields', 'error');
-                            return;
-                        }
-                        
-                        allBooks.push(newBook);
-                        
-                        if (window.addRecord) {
-                            window.addRecord(newBook);
-                        }
-                        
-                        renderBooks();
-                        updateDashboardStats();
-                        addForm.reset();
-                        
-                        showNotification('Book added successfully!', 'success');
-                        
-                        setTimeout(() => {
-                            navigation.showSection('dashboard');
-                        }, 1000);
-                    });
-                }
-                
-                // Set default date
-                const dateInput = document.getElementById('date-added');
-                if (dateInput) {
-                    dateInput.value = new Date().toISOString().split('T')[0];
-                }
                 
                 // Add event listeners
                 const searchInput = document.getElementById('search-input');
