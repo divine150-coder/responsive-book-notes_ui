@@ -22,21 +22,29 @@ const ui = (() => {
             .replace(/'/g, '&#39;');
     }
 
-    // Get all books data
-    const getAllBooks = () => [
-        {"id": "book_0001", "title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "pages": 180, "tag": "Classic", "dateAdded": "2024-12-01"},
-        {"id": "book_0002", "title": "1984", "author": "George Orwell", "pages": 328, "tag": "Dystopian", "dateAdded": "2024-12-02"},
-        {"id": "book_0003", "title": "A", "author": "Single Letter", "pages": 1, "tag": "Minimal", "dateAdded": "2000-01-01"},
-        {"id": "book_0004", "title": "War and Peace", "author": "Leo Tolstoy", "pages": 1225, "tag": "Classic", "dateAdded": "2024-12-31"},
-        {"id": "book_0005", "title": "The Hobbit", "author": "J.R.R. Tolkien", "pages": 310, "tag": "Fantasy", "dateAdded": "2024-12-05"},
-        {"id": "book_0006", "title": "Dune Dune Chronicles", "author": "Frank Herbert", "pages": 688, "tag": "Science-Fiction", "dateAdded": "2024-02-29"},
-        {"id": "book_0007", "title": "JavaScript: The Good Parts", "author": "Douglas Crockford", "pages": 153, "tag": "Programming", "dateAdded": "2024-12-07"},
-        {"id": "book_0008", "title": "The Art of Computer Programming", "author": "Donald Knuth", "pages": 3168, "tag": "Computer-Science", "dateAdded": "2024-12-08"},
-        {"id": "book_0009", "title": "Pride and Prejudice", "author": "Jane Austen", "pages": 279, "tag": "Romance", "dateAdded": "2024-12-09"},
-        {"id": "book_0010", "title": "Sapiens: A Brief History of Humankind", "author": "Yuval Noah Harari", "pages": 443, "tag": "History", "dateAdded": "2024-12-10"},
-        {"id": "book_0011", "title": "The Quantum Universe", "author": "Brian Cox", "pages": 255, "tag": "Science", "dateAdded": "2024-12-11"},
-        {"id": "book_0012", "title": "Mindfulness in Plain English", "author": "Bhante Henepola Gunaratana", "pages": 224, "tag": "Self-Help", "dateAdded": "2024-12-12"}
-    ];
+    // Get all books data from localStorage or default
+    const getAllBooks = () => {
+        const stored = localStorage.getItem('bookNotesVaultRecords');
+        return stored ? JSON.parse(stored) : [
+            {"id": "book_0001", "title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "pages": 180, "tag": "Classic", "dateAdded": "2024-12-01"},
+            {"id": "book_0002", "title": "1984", "author": "George Orwell", "pages": 328, "tag": "Dystopian", "dateAdded": "2024-12-02"},
+            {"id": "book_0003", "title": "A", "author": "Single Letter", "pages": 1, "tag": "Minimal", "dateAdded": "2000-01-01"},
+            {"id": "book_0004", "title": "War and Peace", "author": "Leo Tolstoy", "pages": 1225, "tag": "Classic", "dateAdded": "2024-12-31"},
+            {"id": "book_0005", "title": "The Hobbit", "author": "J.R.R. Tolkien", "pages": 310, "tag": "Fantasy", "dateAdded": "2024-12-05"},
+            {"id": "book_0006", "title": "Dune Dune Chronicles", "author": "Frank Herbert", "pages": 688, "tag": "Science-Fiction", "dateAdded": "2024-02-29"},
+            {"id": "book_0007", "title": "JavaScript: The Good Parts", "author": "Douglas Crockford", "pages": 153, "tag": "Programming", "dateAdded": "2024-12-07"},
+            {"id": "book_0008", "title": "The Art of Computer Programming", "author": "Donald Knuth", "pages": 3168, "tag": "Computer-Science", "dateAdded": "2024-12-08"},
+            {"id": "book_0009", "title": "Pride and Prejudice", "author": "Jane Austen", "pages": 279, "tag": "Romance", "dateAdded": "2024-12-09"},
+            {"id": "book_0010", "title": "Sapiens: A Brief History of Humankind", "author": "Yuval Noah Harari", "pages": 443, "tag": "History", "dateAdded": "2024-12-10"},
+            {"id": "book_0011", "title": "The Quantum Universe", "author": "Brian Cox", "pages": 255, "tag": "Science", "dateAdded": "2024-12-11"},
+            {"id": "book_0012", "title": "Mindfulness in Plain English", "author": "Bhante Henepola Gunaratana", "pages": 224, "tag": "Self-Help", "dateAdded": "2024-12-12"}
+        ];
+    };
+
+    // Save books to localStorage
+    const saveBooks = (books) => {
+        localStorage.setItem('bookNotesVaultRecords', JSON.stringify(books));
+    };
 
     // Filter books based on search and tag filter
     const filterBooks = () => {
@@ -156,6 +164,7 @@ const ui = (() => {
         updateProgressBars(totalPages);
         updateCategoryBreakdown(books, tagCounts);
         updateGoalStatus(totalBooks, totalPages);
+        updateRecentBooks(books);
     };
     
     const updateProgressBars = (totalPages) => {
@@ -212,6 +221,30 @@ const ui = (() => {
             goalStatuses[1].textContent = ` ${totalBooks}/${yearlyTarget} Books (${yearlyProgress}%)`;
             goalStatuses[1].className = `goal-status ${yearlyProgress >= 100 ? 'achieved' : 'in-progress'}`;
         }
+    };
+    
+    const updateRecentBooks = (books) => {
+        const recentBooksContainer = document.getElementById('recent-books-list');
+        if (!recentBooksContainer) return;
+        
+        // Sort by date added (newest first) and take top 3
+        const recentBooks = books
+            .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
+            .slice(0, 3);
+        
+        recentBooksContainer.innerHTML = '';
+        recentBooks.forEach(book => {
+            const bookItem = document.createElement('div');
+            bookItem.className = 'book-item';
+            bookItem.innerHTML = `
+                <div class="book-cover"></div>
+                <div class="book-info">
+                    <div class="book-title">${book.title}</div>
+                    <div class="book-meta">${book.pages} pages • ${new Date(book.dateAdded).toLocaleDateString()}</div>
+                </div>
+            `;
+            recentBooksContainer.appendChild(bookItem);
+        });
     };
 
     function updateTrendChart(data) {
@@ -276,6 +309,7 @@ const ui = (() => {
     const handleAddFormSubmit = (event) => {
         event.preventDefault();
         if (!addForm) return;
+        
         const formData = new FormData(addForm);
         const newRecord = {
             id: `book_${Date.now()}`,
@@ -287,14 +321,18 @@ const ui = (() => {
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
         };
-        try {
-            if (window.addRecord) {
-                window.addRecord(newRecord);
-            }
-        } catch (e) {
-            console.error(e);
-        }
-        refreshUI();
+        
+        // Save to localStorage
+        const books = getAllBooks();
+        books.push(newRecord);
+        saveBooks(books);
+        
+        // Show success message
+        alert(` Book "${newRecord.title}" saved successfully!`);
+        
+        // Update UI and reset form
+        renderRecords();
+        updateStats();
         addForm.reset();
     };
 
