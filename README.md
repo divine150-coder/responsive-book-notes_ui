@@ -1,37 +1,37 @@
+Website
 https://divine150-coder.github.io/responsive-book-notes_ui/
+Video demo
 https://youtube.com/shorts/8Ujmkb_VPb4?feature=share
-# 📚 Book & Notes Vault
+#  Book & Notes Vault
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://divine150-coder.github.io/book-notes-vault/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/divine150-coder/book-notes-vault)
 
-## 🎯 Overview
+##  Overview
 Book & Notes Vault is a professional-grade, responsive web application designed for avid readers who want to maintain detailed records of their literary journey. Built with vanilla HTML5, CSS3, and JavaScript ES6+, it provides comprehensive book cataloging with advanced search capabilities, reading analytics, and goal tracking.
 
-## ✨ Key Features
+##  Key Features
 
-### 📖 Core Functionality
+###  Core Functionality
 - **Smart Cataloging**: Add, edit, and delete book records with detailed metadata
 - **Advanced Search**: Real-time regex-powered search with safe compilation and highlighting
 - **Intelligent Sorting**: Multi-field sorting (title, author, pages, date) with ascending/descending options
 - **Category Filtering**: Quick filtering by book categories and tags
 - **Data Persistence**: Robust localStorage with JSON import/export capabilities
 
-### 📊 Analytics & Tracking
+###  Analytics & Tracking
 - **Interactive Dashboard**: Real-time statistics with progress bars and charts
 - **Reading Goals**: Set and track monthly page targets and yearly book goals
 - **Progress Monitoring**: Visual progress indicators with percentage completion
 - **Category Insights**: Top categories analysis with book counts and page totals
 - **Activity Charts**: Monthly reading activity visualization
 
-### 🎨 User Experience
-- **Responsive Design**: Mobile-first approach with 4+ breakpoints (320px, 480px, 768px, 1024px+)
+###  User Experience
+- **Responsive Design**: Mobile-first approach with 4+ breakpoints
 - **Theme System**: Light/dark mode with smooth transitions and localStorage persistence
 - **Professional UI**: Glass morphism design with gradients and backdrop filters
 - **Accessibility**: WCAG 2.1 AA compliant with full keyboard navigation and screen reader support
 - **Real-time Validation**: Instant form validation with visual feedback and error messages
-
-## Regex Catalog
 
 ### Core Validation Patterns
 1. **Title/Author Validation**: `/^\S(?:.*\S)?$/`
@@ -67,7 +67,7 @@ Book & Notes Vault is a professional-grade, responsive web application designed 
    - Purpose: Special tag-based search syntax
    - Examples: ✓ "@tag:fiction" ✓ "@tag:science" ✗ "fiction"
 
-## ⌨️ Keyboard Navigation Map
+##  Keyboard Navigation Map
 
 | Key Combination | Action | Context |
 |-----------------|--------|---------|
@@ -81,11 +81,6 @@ Book & Notes Vault is a professional-grade, responsive web application designed 
 | `Home/End` | Jump to beginning/end of input fields | Text inputs |
 | `Page Up/Down` | Scroll through long content | Content areas |
 
-### Skip Navigation
-- **Skip Link**: Press `Tab` on page load to reveal "Skip to content" link
-- **Section Navigation**: Use landmark navigation in screen readers
-- **Focus Management**: Logical tab order maintained throughout application
-
 ## Accessibility Features
 - **Semantic HTML**: Proper landmarks (header, nav, main, section, footer)
 - **ARIA Labels**: Comprehensive labeling for screen readers
@@ -96,21 +91,19 @@ Book & Notes Vault is a professional-grade, responsive web application designed 
 - **Screen Reader**: Compatible with NVDA, JAWS, and VoiceOver
 - **Skip Links**: Quick navigation for keyboard users
 
-## 📁 Project Structure
+## Project Structure
 
-```
 book-notes-vault/
-├── 📄 index.html              # Main application entry point
-├── 📁 styles/                 # CSS Architecture
+├──  index.html             # Main application entry point
+├──  styles/                # CSS Architecture
 │   ├── main.css            # Core styles, layout, forms, tables
 │   ├── components.css      # Reusable UI components
 │   ├── themes.css          # Light/dark theme variables
 │   ├── library.css         # Library-specific styling
 │   ├── dashboard.css       # Dashboard layout and cards
-│   ├── dashboard-friendly.css # User-friendly enhancements
 │   ├── about.css           # About page professional styling
 │   └── responsive.css      # Mobile-first responsive design
-├── 📁 scripts/               # JavaScript Modules (ES6+)
+├──  scripts/               # JavaScript Modules
 │   ├── storage.js          # localStorage persistence & validation
 │   ├── state.js            # Application state management
 │   ├── ui.js               # DOM manipulation & event handling
@@ -119,17 +112,12 @@ book-notes-vault/
 │   ├── navigation.js       # Section navigation & routing
 │   ├── theme.js            # Theme switching & persistence
 │   └── tests.js            # Comprehensive test suite
-├── 📁 assets/                # Static Resources
+├──  assets/                # Static Resources
 │   ├── icons/              # UI icons and graphics
 │   └── fonts/              # Custom typography
-├── 📄 tests.html             # Interactive test runner
-├── 📄 seed.json              # Sample data (12 diverse books)
-├── 📄 .gitignore             # Git ignore patterns
-├── 📄 DEPLOYMENT.md          # Deployment guide
-├── 📄 ACCESSIBILITY.md       # Accessibility documentation
-├── 📄 TESTING.md             # Testing procedures
-└── 📄 README.md              # Main documentation
-```
+├──  tests.html             # Interactive test runner
+├──  seed.json              # Sample data (12 diverse books)
+└──  README.md              # Main documentation
 
 ### Architecture Highlights
 - **Modular Design**: Separated concerns with dedicated files for each functionality
@@ -139,51 +127,19 @@ book-notes-vault/
 - **Accessibility-First**: WCAG 2.1 AA compliance built into every component
 - **Performance Optimized**: Minimal dependencies, efficient DOM operations
 
-## How to Run Tests
-1. Open `tests.html` in your web browser
-2. Click "Run Tests" button to execute all test cases
-3. View results in the test summary and detailed logs
-4. Tests cover:
+## Tests cover
    - Regex validation patterns
    - Data model structure
    - Search functionality
    - Advanced pattern matching
    - Edge cases and error handling
 
-## 🚀 Quick Start Guide
-
 ### Prerequisites
-- Modern web browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
+- Modern web browser (Chrome 90+, Firefox 88+, Edge 90+)
 - No additional dependencies or build tools required
 
-### Installation & Setup
-
-#### Option 1: Direct Download
-1. Download the project files
-2. Open `index.html` in your browser
-3. Start using the application immediately
-
-#### Option 2: Local Development Server (Recommended)
-```bash
-# Clone the repository
-git clone https://github.com/divine150-coder/book-notes-vault.git
-cd book-notes-vault
-
-# Start local server (choose one):
-# Python 3
-python -m http.server 8000
-
-# Node.js
-npx serve .
-
-# PHP
-php -S localhost:8000
-
-# Then open: http://localhost:8000
-```
-
 #### Option 3: Live Demo
-Visit the deployed application: [https://divine150-coder.github.io/book-notes-vault/](https://divine150-coder.github.io/book-notes-vault/)
+Visit the deployed application: [https://divine150-coder.github.io/responsive-book-notes_ui/](https://divine150-coder.github.io/responsive-book-notes_ui/)
 
 ### First Steps
 1. **Load Sample Data**: Go to Settings → Load Sample Data (12 diverse books)
@@ -205,21 +161,11 @@ Each book record contains:
   "createdAt": "2024-12-01T10:00:00Z",
   "updatedAt": "2024-12-01T10:00:00Z"
 }
-```
 
 ## Browser Support
 - Chrome 90+
 - Firefox 88+
-- Safari 14+
 - Edge 90+
-
-## 🧪 Testing Instructions
-
-### Automated Testing
-1. Open `tests.html` in your browser
-2. Click "Run Tests" to execute the full test suite
-3. Verify all tests pass (should show "10 passed, 0 failed")
-4. Review detailed logs for any issues
 
 ### Manual Testing Checklist
 - [ ] **Functionality**: Add, edit, delete, search, filter, sort books
@@ -235,35 +181,23 @@ The application includes comprehensive regex validation:
 - **Advanced Patterns**: Duplicate detection, ISBN, email, passwords
 - **Search Engine**: Safe compilation, highlighting, error handling
 
-## 🌍 Browser Support
+##  Browser Support
 
 | Browser | Version | Status |
 |---------|---------|--------|
-| Chrome | 90+ | ✅ Fully Supported |
-| Firefox | 88+ | ✅ Fully Supported |
-| Safari | 14+ | ✅ Fully Supported |
-| Edge | 90+ | ✅ Fully Supported |
-| Mobile Safari | iOS 14+ | ✅ Fully Supported |
-| Chrome Mobile | Android 90+ | ✅ Fully Supported |
+| Chrome | 90+ |  Fully Supported |
+| Firefox | 88+ |  Fully Supported |
+| Safari | 14+ |  Fully Supported |
+| Edge | 90+ |  Fully Supported |
+| Mobile Safari | iOS 14+ |  Fully Supported |
+| Chrome Mobile | Android 90+ |  Fully Supported |
 
-## 📊 Performance Metrics
+##  Performance Metrics
 - **First Contentful Paint**: < 1.2s
 - **Largest Contentful Paint**: < 2.5s
 - **Cumulative Layout Shift**: < 0.1
 - **First Input Delay**: < 100ms
 - **Lighthouse Score**: 95+ (All categories)
-
-## 🤝 Contributing
-
-We welcome contributions! Please follow these guidelines:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Test** your changes thoroughly
-4. **Ensure** accessibility compliance
-5. **Commit** with clear messages (`git commit -m 'Add amazing feature'`)
-6. **Push** to your branch (`git push origin feature/amazing-feature`)
-7. **Open** a Pull Request
 
 ### Development Standards
 - Follow existing code style and patterns
@@ -272,24 +206,19 @@ We welcome contributions! Please follow these guidelines:
 - Test across multiple browsers and devices
 - Update documentation for new features
 
-## 📜 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Contact & Support
+##  Contact & Support
 
 **Developer**: Divine Mutesi  
 **Email**: [d.mutesi1@alustudent.com](mailto:d.mutesi1@alustudent.com)  
 **GitHub**: [https://github.com/divine150-coder](https://github.com/divine150-coder)  
-**Live Demo**: [https://divine150-coder.github.io/book-notes-vault/](https://divine150-coder.github.io/book-notes-vault/)
+**Live Demo**: [https://divine150-coder.github.io/responsive-book-notes_ui/](https://divine150-coder.github.io/responsive-book-notes_ui/)
 
 ### Additional Resources
-- [Deployment Guide](DEPLOYMENT.md)
-- [Accessibility Documentation](ACCESSIBILITY.md)
-- [Testing Procedures](TESTING.md)
-- [Issue Tracker](https://github.com/divine150-coder/book-notes-vault/issues)
+- [Issue Tracker](https://github.com/divine150-coder/responsive-book-notes_ui/issues)
 
----
-
-**Built with ❤️ for book lovers everywhere**  
+**Built with  for book lovers everywhere**  
 *Transform your reading journey with professional-grade digital library management*
