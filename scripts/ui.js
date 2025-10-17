@@ -97,8 +97,8 @@ const ui = (() => {
                     <td><span class="tag-badge">${record.tag}</span></td>
                     <td>${record.dateAdded}</td>
                     <td class="actions">
-                        <button class="edit-btn" data-id="${record.id}" aria-label="Edit ${record.title}">✏️ Edit</button>
-                        <button class="delete-btn" data-id="${record.id}" aria-label="Delete ${record.title}">🗑️ Delete</button>
+                        <button class="edit-btn" data-id="${record.id}" aria-label="Edit ${record.title}"> Edit</button>
+                        <button class="delete-btn" data-id="${record.id}" aria-label="Delete ${record.title}"> Delete</button>
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -121,8 +121,8 @@ const ui = (() => {
                         <div><strong>Added:</strong> ${record.dateAdded}</div>
                     </div>
                     <div class="actions">
-                        <button class="edit-btn btn btn-outline" data-id="${record.id}" aria-label="Edit ${record.title}">✏️ Edit</button>
-                        <button class="delete-btn btn btn-outline" data-id="${record.id}" aria-label="Delete ${record.title}">🗑️ Delete</button>
+                        <button class="edit-btn btn btn-outline" data-id="${record.id}" aria-label="Edit ${record.title}"> Edit</button>
+                        <button class="delete-btn btn btn-outline" data-id="${record.id}" aria-label="Delete ${record.title}"> Delete</button>
                     </div>
                 `;
                 mobileContainer.appendChild(card);
@@ -206,10 +206,10 @@ const ui = (() => {
         
         const goalStatuses = document.querySelectorAll('.goal-status');
         if (goalStatuses.length >= 2) {
-            goalStatuses[0].textContent = `${monthlyProgress >= 100 ? '✅' : '📈'} ${monthlyProgress}% Complete`;
+            goalStatuses[0].textContent = `${monthlyProgress >= 100 ? '' : ''} ${monthlyProgress}% Complete`;
             goalStatuses[0].className = `goal-status ${monthlyProgress >= 100 ? 'achieved' : 'in-progress'}`;
             
-            goalStatuses[1].textContent = `📚 ${totalBooks}/${yearlyTarget} Books (${yearlyProgress}%)`;
+            goalStatuses[1].textContent = ` ${totalBooks}/${yearlyTarget} Books (${yearlyProgress}%)`;
             goalStatuses[1].className = `goal-status ${yearlyProgress >= 100 ? 'achieved' : 'in-progress'}`;
         }
     };
@@ -381,8 +381,8 @@ const ui = (() => {
                 <td>${record.tag}</td>
                 <td>${record.dateAdded}</td>
                 <td>
-                    <button class="edit-btn" data-id="${record.id}">✏️ Edit</button>
-                    <button class="delete-btn" data-id="${record.id}">🗑️ Delete</button>
+                    <button class="edit-btn" data-id="${record.id}"> Edit</button>
+                    <button class="delete-btn" data-id="${record.id}"> Delete</button>
                 </td>
             `;
             tbody.appendChild(row);
@@ -440,12 +440,9 @@ const ui = (() => {
         // Import/Export functionality
         document.getElementById('export-data')?.addEventListener('click', exportData);
         document.getElementById('import-data')?.addEventListener('click', () => {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            input.onchange = importData;
-            input.click();
+            document.getElementById('import-file')?.click();
         });
+        document.getElementById('import-file')?.addEventListener('change', importData);
         document.getElementById('load-seed')?.addEventListener('click', loadSampleData);
         
         // Units conversion
@@ -513,7 +510,7 @@ const ui = (() => {
     };
 
     function exportData() {
-        const records = window.getRecords ? window.getRecords() : [];
+        const records = getAllBooks();
         const dataStr = JSON.stringify(records, null, 2);
         const dataBlob = new Blob([dataStr], { type: 'application/json' });
         const url = URL.createObjectURL(dataBlob);
@@ -524,6 +521,7 @@ const ui = (() => {
         link.click();
         
         URL.revokeObjectURL(url);
+        alert('Data exported successfully!');
     }
 
     function importData(event) {
@@ -536,10 +534,8 @@ const ui = (() => {
                 const data = JSON.parse(e.target.result);
                 if (Array.isArray(data) && data.every(validateRecordStructure)) {
                     localStorage.setItem('bookNotesVaultRecords', JSON.stringify(data));
-                    if (window.loadFromStorage) {
-                        window.loadFromStorage();
-                    }
-                    refreshUI();
+                    renderRecords(data);
+                    updateStats();
                     alert('Data imported successfully!');
                 } else {
                     alert('Invalid data format. Please check your JSON file.');
